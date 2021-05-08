@@ -1,16 +1,24 @@
 # This is a sample Python script.
 import sqlite3
+from datetime import datetime
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
+con = sqlite3.connect("gems2.db")
+cursor = con.cursor()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
+def database_table_creat():
+  cursor.execute("CREATE TABLE IF NOT EXISTS mibfile (id  INTEGER PRIMARY KEY AUTOINCREMENT,imports  varchar(2000),loaded varchar(2000),log varchar(2000), name varchar(2000), path varchar(2000), uploadtime DATETIME NOT NULL DEFAULT (datetime(CURRENT_TIMESTAMP, 'localtime')) , filename varchar(2000)) ")
+
+def table_insert():
+  cursor.execute("INSERT INTO mibfile  (imports,loaded,log,name,path,filename) values ('deneme','OK','log','test','deneme','deneme')" )
+  con.commit()
+
+database_table_creat()
+table_insert()
+con.close()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print("Database connection Succes..")
